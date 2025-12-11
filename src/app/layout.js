@@ -6,13 +6,15 @@ import "./globals.css";
 import StoreProvider from "./StoreProvider";
 
 export const metadata = {
-  title: "Localists",
-  description: "Localist.com",
+  title: "Find Trusted Local Services and Professionals",
+  description:
+    "Connect with verified local experts through Localists.com. Find trusted professionals, compare quotes, and hire the best for your project—quick, easy, and free.",
   robots: {
     index: false,
     follow: false,
   },
 };
+
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -21,8 +23,10 @@ const inter = Inter({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <head>
         <TrackingScripts />
+      </head>
+      <body className={`${inter.className} antialiased`}>
         <NoscriptTags />
         <StoreProvider>
           <div className="w-full">

@@ -1,13 +1,8 @@
-// components/TrackingScripts.js
-import Script from 'next/script'
-
 const TrackingScripts = () => {
   return (
     <>
       {/* Step 1: Bing UET Tracking */}
-      <Script
-        id="bing-uet"
-        strategy="afterInteractive"
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,t,r,u){
@@ -29,9 +24,7 @@ const TrackingScripts = () => {
       />
       
       {/* Step 2: Bing Consent */}
-      <Script
-        id="bing-consent"
-        strategy="afterInteractive"
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             window.uetq = window.uetq || [];
@@ -46,14 +39,12 @@ const TrackingScripts = () => {
         }}
       />
       
-      {/* Step 3: Google Delayed Loader */}
-      <Script
-        id="google-delayed-loader"
-        strategy="lazyOnload"
+      {/* Step 3: Google Delayed Loader (Google Ads + GA4) */}
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             function loadTrackingScripts() {
-              // AW-17528251553
+              // Google Ads: AW-17528251553
               const adScript = document.createElement("script");
               adScript.async = true;
               adScript.src = "https://www.googletagmanager.com/gtag/js?id=AW-17528251553";
@@ -63,7 +54,7 @@ const TrackingScripts = () => {
               adConfig.innerHTML = 'window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "AW-17528251553");';
               document.head.appendChild(adConfig);
               
-              // G-QJ5NH8NF5Q
+              // GA4: G-QJ5NH8NF5Q
               const gaScript = document.createElement("script");
               gaScript.async = true;
               gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-QJ5NH8NF5Q";
@@ -72,6 +63,17 @@ const TrackingScripts = () => {
               const gaConfig = document.createElement("script");
               gaConfig.innerHTML = 'window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "G-QJ5NH8NF5Q");';
               document.head.appendChild(gaConfig);
+              
+              // Conversion Event (from original setup)
+              setTimeout(function() {
+                if (typeof gtag !== 'undefined') {
+                  gtag('event', 'conversion', {
+                    send_to: 'AW-17528251553/iVB9CJjZsZMbEKHJj6ZB',
+                    value: 1.0,
+                    currency: 'GBP'
+                  });
+                }
+              }, 100);
             }
             
             // Load after 500ms on window load
@@ -83,9 +85,7 @@ const TrackingScripts = () => {
       />
       
       {/* Step 4: Facebook SDK */}
-      <Script
-        id="facebook-sdk"
-        strategy="lazyOnload"
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             window.fbAsyncInit = function () {
@@ -111,9 +111,7 @@ const TrackingScripts = () => {
       />
       
       {/* Step 5: Image Enhancement Script */}
-      <Script
-        id="image-enhancer"
-        strategy="lazyOnload"
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             (function() {
@@ -169,9 +167,7 @@ const TrackingScripts = () => {
       />
       
       {/* Step 6: Hotjar */}
-      <Script
-        id="hotjar"
-        strategy="lazyOnload"
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             (function(h,o,t,j,a,r){
@@ -187,9 +183,7 @@ const TrackingScripts = () => {
       />
       
       {/* Step 7: Google Tag Manager */}
-      <Script
-        id="gtm"
-        strategy="lazyOnload"
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,s,l,i){
@@ -206,9 +200,7 @@ const TrackingScripts = () => {
       />
       
       {/* Step 8: Facebook Pixel */}
-      <Script
-        id="facebook-pixel"
-        strategy="lazyOnload"
+      <script
         dangerouslySetInnerHTML={{
           __html: `
             !function(f,b,e,v,n,t,s){
@@ -229,4 +221,4 @@ const TrackingScripts = () => {
   )
 }
 
-export default TrackingScripts
+export default TrackingScripts;
